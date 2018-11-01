@@ -36,4 +36,32 @@ $ mkdir my-project && touch my-project/lamp.env
 $ docker run -p "3306:3306" -p "80:80" -v "${PWD}/my-project:/project" --name my-project ibrt/lamp
 ```
 
-If everything goes well, navigating to `http://localhost` should display a welcome page. Additionally, `/phpinfo` should display a `phpinfo();` page, and it should be possible to log into `/phpmyadmin` as root, using the password found in the `lamp.env` file.
+If everything goes well, navigating to `http://localhost` should display a welcome page. Additionally, `/phpinfo` should display a `phpinfo();` page, and it should be possible to log into `/phpmyadmin` as root, using the password found in the `lamp.env` file. It should also be possible to connect to MySQL on `localhost:3306`.
+
+### Interacting with the Container
+
+###### Stopping and Restarting
+
+The container can be cleanly stopped using `docker stop` or `Ctrl+C` (if not detached). It can then be restarted using the same command described in the previous section. Existing web and MySQL data directories are left untouched on startup.
+
+###### Multiple Projects
+
+It is of course possible to run multiple instances of the container, provided they mount different project directories. To do so, bind ports 80 and 3306 of the container to different ports on the host:
+
+```
+$ docker run -p "33001:3306" -p "8001:80" -v "${PWD}/first-project:/project" --name first-project ibrt/lamp
+$ docker run -p "33002:3306" -p "8002:80" -v "${PWD}/second-project:/project" --name second-project ibrt/lamp
+```
+
+##### Attaching a Shell
+
+Docker for Mac automagically changes permissions for files and directories in mounted volumes. On the host, any file created from within the container will be owned by the host user. Inside the container, any file in the mounted volume will appear to be owned by the same user and group of the process accessing it, whether it is a shell or a system service.
+
+It is possible to attach a shell to a running container using one of the following commands:
+
+```
+$ docker exec -it my-project bash
+$ docker exec -it my-project setuser www-data bash
+```
+
+The former starts a root shell, while the latter starts a non-root shell. Some tools such as Composer will complain when running as root... Besides that there's no real downside to using a root shell, as any change outside the project directory will be lost when the container is stopped.
