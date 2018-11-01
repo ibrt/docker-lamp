@@ -2,7 +2,7 @@
 [![Docker Build Status](https://img.shields.io/docker/build/ibrt/lamp.svg)](https://hub.docker.com/r/ibrt/lamp/builds)
 [![Docker Image](https://images.microbadger.com/badges/image/ibrt/lamp.svg)](https://microbadger.com/images/ibrt/lamp)
 
-This Docker image contains a full Apache2/PHP/MySQL stack for local development purposes. For simplicity, it runs all services in a single container and mounts a single volume. It is designed to work on macOS using the latest Docker for Mac.
+This Docker image contains a full Apache2/PHP/MySQL stack for local development purposes. For simplicity, it runs all services in a single container and mounts a single volume. It is designed to work on macOS using a recent Docker for Mac (note that the older boot2docker and Docker Machine systems are not supported).
 
 ### Getting Started
 
@@ -65,3 +65,14 @@ $ docker exec -it my-project setuser www-data bash
 ```
 
 The former starts a root shell, while the latter starts a non-root shell. Some tools such as Composer will complain when running as root... Besides that there's no real downside to using a root shell, as any change outside the project directory will be lost when the container is stopped.
+
+##### Accessing Logs
+
+The following commands print out respectively the Apache2 access log, the Apache2 error log (which also contains PHP errors), and the MySQL error log:
+
+```
+$ docker exec -it my-project cat /var/log/apache2/access.log
+$ docker exec -it my-project cat /var/log/apache2/error.log
+$ docker exec -it my-project cat /var/log/mysql/error.log
+````
+
