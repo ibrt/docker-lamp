@@ -8,6 +8,8 @@ ENV PMA_VERSION=4.8.3
 ENV COMPOSER_VERSION=1.7.2
 ENV SERVER_NAME localhost
 ENV PHP_MEMORY_LIMIT 256M
+ENV PHP_DISPLAY_ERRORS On
+ENV PHP_ERROR_REPORTING E_ALL
 ENV PHP_MODULES intl mysqli mbstring curl zip dom gd
 
 # Inferred environment variables.
@@ -48,9 +50,8 @@ RUN echo "ServerName $SERVER_NAME" >> /etc/apache2/apache2.conf && \
     sed -i "s#/var/www/#/project/app/#" /etc/apache2/apache2.conf && \
     a2enmod rewrite && \
     sed -i "s/^memory_limit.*/memory_limit = $PHP_MEMORY_LIMIT/" "/etc/php/$PHP_VERSION/apache2/php.ini" && \
-    sed -i "s/^display_errors.*/display_errors = On/" "/etc/php/$PHP_VERSION/apache2/php.ini" && \
-    sed -i "s/^display_startup_errors.*/display_startup_errors = On/" "/etc/php/$PHP_VERSION/apache2/php.ini" && \
-    sed -i "s/^error_reporting.*/error_reporting = E_ALL/" "/etc/php/$PHP_VERSION/apache2/php.ini" && \
+    sed -i "s/^display_errors.*/display_errors = $PHP_DISPLAY_ERRORS/" "/etc/php/$PHP_VERSION/apache2/php.ini" && \
+    sed -i "s/^error_reporting.*/error_reporting = $PHP_ERROR_REPORTING/" "/etc/php/$PHP_VERSION/apache2/php.ini" && \
     sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf && \
     sed -i "s/.*datadir.*/datadir = \/project\/mysql/" /etc/mysql/mysql.conf.d/mysqld.cnf && \
     mv /usr/share/phpmyadmin/config.sample.inc.php /usr/share/phpmyadmin/config.inc.php && \
