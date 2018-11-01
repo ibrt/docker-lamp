@@ -23,15 +23,11 @@ fi
 # Check MySQL data dir, initialize if needed.
 if [ ! -d "/project/mysql" ]; then
   echo "Initializing MySQL database..."
-  cp "/usr/share/phpmyadmin/sql/create_tables.sql" "/init.sql"
-  ROOT_PASSWORD="$MYSQL_PASSWORD" \
-  PMA_DB="$(cat /etc/phpmyadmin/config-db.php | grep '$dbname' | cut -d"'" -f2)" \
-  PMA_USER="$(cat /etc/phpmyadmin/config-db.php | grep '$dbuser' | cut -d"'" -f2)" \
-  PMA_PASSWORD="$(cat /etc/phpmyadmin/config-db.php | grep '$dbpass' | cut -d"'" -f2)" \
-  envsubst < "/usr/share/init.sql.tpl" >> "/init.sql"
+  cp "/usr/share/phpmyadmin/sql/create_tables.sql" "/tmp/init.sql"
+  MYSQL_PASSWORD="$MYSQL_PASSWORD" envsubst < "/usr/share/init.sql.tpl" >> "/tmp/init.sql"  
   mkdir -p "/project/mysql"
-  mysqld --initialize-insecure --init-file "/init.sql"
-  rm "/init.sql"
+  mysqld --initialize-insecure --init-file "/tmp/init.sql"
+  rm "/tmp/init.sql"
 fi
 
 # Check web dir, initialize if needed.
