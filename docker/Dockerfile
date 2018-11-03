@@ -32,7 +32,7 @@ RUN mkdir -p /etc/service/apache2 /etc/service/mysql /var/run/mysqld && \
     chown -R mysql:mysql /var/run/mysqld && \
     chown -R www-data:www-data /var/www && \
     curl --progress "$PMA_URL" | tar -xz -C /usr/share/phpmyadmin --strip-components 1 && \
-	curl --progress "$COMPOSER_URL" > /usr/local/bin/composer && \
+    curl --progress "$COMPOSER_URL" > /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
