@@ -49,8 +49,8 @@ The container can be cleanly stopped using `docker stop` or `Ctrl+C` (if not det
 It is of course possible to run multiple instances of the container, provided they mount different project directories. To do so, bind ports 80 and 3306 of the container to different ports on the host:
 
 ```
-$ docker run -p "33001:3306" -p "8001:80" -v "${PWD}/first-project:/project" --name first-project ibrt/lamp
-$ docker run -p "33002:3306" -p "8002:80" -v "${PWD}/second-project:/project" --name second-project ibrt/lamp
+$ docker run -p "33001:3306" -p "8001:80" -v "${PWD}/project-1:/project" --name project-1 ibrt/lamp
+$ docker run -p "33002:3306" -p "8002:80" -v "${PWD}/project-2:/project" --name project-2 ibrt/lamp
 ```
 
 ##### Attaching a Shell
@@ -76,3 +76,12 @@ $ docker exec -it my-project cat /var/log/apache2/error.log
 $ docker exec -it my-project cat /var/log/mysql/error.log
 ````
 
+##### Choosing the MySQL Root Password
+
+It is possible to choose a MySQL root password by adding it to the `lamp.env` configuration file before the container is started on the project for the first time:
+
+```
+$ mkdir my-project && touch my-project/lamp.env
+$ echo 'MYSQL_PASSWORD="<my-password>"' > my-project/lamp.env
+$ docker run -p "3306:3306" -p "80:80" -v "${PWD}/my-project:/project" --name my-project ibrt/lamp
+```
