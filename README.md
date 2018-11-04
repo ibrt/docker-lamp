@@ -44,7 +44,7 @@ If everything goes well, navigating to `http://localhost` should display a welco
 
 The container can be cleanly stopped using `docker stop` or `Ctrl+C` (if not detached). It can then be restarted using the same command described in the previous section. Existing web and MySQL data directories are left untouched on startup.
 
-###### Multiple Projects
+###### Working on Multiple Projects
 
 It is of course possible to run multiple instances of the container, provided they mount different project directories. To do so, bind ports 80 and 3306 of the container to different ports on the host:
 
@@ -53,7 +53,7 @@ $ docker run -p "33001:3306" -p "8001:80" -v "${PWD}/project-1:/project" --name 
 $ docker run -p "33002:3306" -p "8002:80" -v "${PWD}/project-2:/project" --name project-2 ibrt/lamp
 ```
 
-##### Attaching a Shell
+###### Attaching a Shell
 
 Docker for Mac automagically changes permissions for files and directories in mounted volumes. On the host, any file created from within the container will be owned by the host user. Inside the container, any file in the mounted volume will appear to be owned by the same user and group of the process accessing it, whether it is a shell or a system service.
 
@@ -66,7 +66,7 @@ $ docker exec -it my-project setuser www-data bash
 
 The former starts a root shell, while the latter starts a non-root shell. Some tools such as Composer will complain when running as root... Besides that there's no real downside to using a root shell, as any change outside the project directory will be lost when the container is stopped.
 
-##### Accessing Logs
+###### Accessing Logs
 
 The following commands print out respectively the Apache2 access log, the Apache2 error log (which also contains PHP errors), and the MySQL error log:
 
@@ -76,7 +76,7 @@ $ docker exec -it my-project cat /var/log/apache2/error.log
 $ docker exec -it my-project cat /var/log/mysql/error.log
 ````
 
-##### Choosing the MySQL Root Password
+###### Choosing the MySQL Root Password
 
 It is possible to choose a MySQL root password by adding it to the `lamp.env` configuration file before the container is started on the project for the first time:
 
@@ -84,4 +84,13 @@ It is possible to choose a MySQL root password by adding it to the `lamp.env` co
 $ mkdir my-project && touch my-project/lamp.env
 $ echo 'MYSQL_PASSWORD="<my-password>"' > my-project/lamp.env
 $ docker run -p "3306:3306" -p "80:80" -v "${PWD}/my-project:/project" --name my-project ibrt/lamp
+```
+
+###### Dumping and Restoring MySQL Databases
+
+The `mysqldump` and `mysql` utilities are included in the image and can be used to dump and restore MySQL databases while the container is running. Here is a basic example:
+
+```
+$ docker exec -i my-project mysqldump --password=my-password --databases my-db > my-db.sql
+$ docker exec -i my-project mysql --password=my-password < my-db.sql
 ```
