@@ -58,6 +58,6 @@ RUN echo "ServerName $SERVER_NAME" >> /etc/apache2/apache2.conf && \
     echo "\$cfg['TempDir'] = '/tmp';" >> /usr/share/phpmyadmin/config.inc.php
 
 # Configure image.
-VOLUME [ "/project" ]
+VOLUME ["/project"]
 EXPOSE 80 3306
 CMD ["/sbin/my_init"]

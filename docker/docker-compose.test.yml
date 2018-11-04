@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  sut:
+    build: ./tests/
+    depends_on:
+      - lamp
+  lamp:
+    build: .
+    command: '/bin/bash -c "touch /project/lamp.env; exec /sbin/my_init"'
+    volumes:
+      - project:/project
+
+volumes:
+  project:
