@@ -55,7 +55,6 @@ RUN echo "ServerName $SERVER_NAME" >> /etc/apache2/apache2.conf && \
     sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf && \
     sed -i "s/.*datadir.*/datadir = \/project\/mysql/" /etc/mysql/mysql.conf.d/mysqld.cnf && \
     mv /usr/share/phpmyadmin/config.sample.inc.php /usr/share/phpmyadmin/config.inc.php && \
-    sed -i "s/^\$cfg\['blowfish_secret'\].*/\$cfg['blowfish_secret'] = '$(pwgen -s 32 1)';/" /usr/share/phpmyadmin/config.inc.php && \
     echo "\$cfg['TempDir'] = '/tmp';" >> /usr/share/phpmyadmin/config.inc.php
 
 # Configure image.

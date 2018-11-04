@@ -36,3 +36,6 @@ if [ ! -d "/project/app/web" ]; then
   mkdir -p "/project/app/web"
   ln -s "/usr/share/docs/index.php" "/project/app/web/index.php"
 fi
+
+# Final touches.
+sed -i "s/^\$cfg\['blowfish_secret'\].*/\$cfg['blowfish_secret'] = '$(pwgen -s 32 1)';/" /usr/share/phpmyadmin/config.inc.php
