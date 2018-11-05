@@ -2,7 +2,7 @@
 
 for i in $(seq 1 5); do
   echo "Waiting for container..."
-  curl -s http://lamp > /dev/null
+  curl -f -s http://lamp > /dev/null
   RESULT=$?
 
   if [ "$RESULT" -eq "0" ]; then
