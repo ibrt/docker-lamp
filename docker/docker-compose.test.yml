@@ -3,6 +3,7 @@ version: '2'
 services:
   sut:
     build: ./tests/
+    command: '/tests.sh'
     depends_on:
       - lamp
   lamp:
