@@ -19,13 +19,14 @@
     p{text-align:justify;line-height:1.3;}
     code{white-space:pre!important;line-height:1.3;}
     pre{overflow-x:auto;background-color:#EEEEEE;padding:1em;border-radius:0.5em;}
+    table{width:100%;background-color:#EEEEEE;padding:1em;border-radius:0.5em;line-height:1.3;}
   </style>
 </head>
 <body>
 <h1 id="ibrtlamp">ibrt/lamp</h1>
 <p><a href="https://hub.docker.com/r/ibrt/lamp/builds"><img src="https://img.shields.io/docker/build/ibrt/lamp.svg" alt="Docker Build Status" /></a> <a href="https://microbadger.com/images/ibrt/lamp"><img src="https://images.microbadger.com/badges/image/ibrt/lamp.svg" alt="Docker Image" /></a></p>
 <p>This Docker image contains a full Apache2/PHP/MySQL stack for local development purposes. For simplicity, it runs all services in a single container and mounts a single volume. It is designed to work on macOS using a recent Docker for Mac (note that the older boot2docker and Docker Machine systems are not supported).</p>
-<table border="1" cellpadding="5">
+<table>
   <tr><td>OS Version:</td><td><?=exec('lsb_release -ds')?></td></tr>
   <tr><td>Apache Version:</td><td><?=apache_get_version()?></td></tr>
   <tr><td>PHP Version:</td><td><?=phpversion()?></td></tr>

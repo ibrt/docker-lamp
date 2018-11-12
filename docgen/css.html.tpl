@@ -3,4 +3,5 @@
   p{text-align:justify;line-height:1.3;}
   code{white-space:pre!important;line-height:1.3;}
   pre{overflow-x:auto;background-color:#EEEEEE;padding:1em;border-radius:0.5em;}
+  table{width:100%;background-color:#EEEEEE;padding:1em;border-radius:0.5em;line-height:1.3;}
 </style>
