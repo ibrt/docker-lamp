@@ -4,6 +4,10 @@
 
 This Docker image contains a full Apache2/PHP/MySQL stack for local development purposes. For simplicity, it runs all services in a single container and mounts a single volume. It is designed to work on macOS using a recent Docker for Mac (note that the older boot2docker and Docker Machine systems are not supported).
 
+| Image Tag | PHP Version | MySQL Version | Apache2 Version |
+| --------- | ----------- | ------------- | --------------- |
+| v1        | 7.2.11      | 5.7.24        | 2.4.37          |
+
 ### Getting Started
 
 Running `ibrt/lamp` requires a project directory to be created on the host machine and mounted under `/project`. Initially the project directory will only contain a `lamp.env` configuration file, usually empty. On the first run, the image will generate configuration values such as a new MySQL root password, write them to the configuration file, and create web and MySQL data directories. After the first run, the project directory will contain the following:

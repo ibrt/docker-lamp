@@ -4,7 +4,7 @@
 
 This Docker image contains a full Apache2/PHP/MySQL stack for local development purposes. For simplicity, it runs all services in a single container and mounts a single volume. It is designed to work on macOS using a recent Docker for Mac (note that the older boot2docker and Docker Machine systems are not supported).
 
-%SOFTWARE_VERSIONS%
+%VERSIONS%
 
 ### Getting Started
 

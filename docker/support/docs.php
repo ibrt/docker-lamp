@@ -31,7 +31,8 @@
   <tr><td>Apache Version:</td><td><?=apache_get_version()?></td></tr>
   <tr><td>PHP Version:</td><td><?=phpversion()?></td></tr>
   <tr><td>MySQL Version:</td><td><?=exec('mysqld --version')?></td></tr>
-</table><h3 id="getting-started">Getting Started</h3>
+</table>
+<h3 id="getting-started">Getting Started</h3>
 <p>Running <code>ibrt/lamp</code> requires a project directory to be created on the host machine and mounted under <code>/project</code>. Initially the project directory will only contain a <code>lamp.env</code> configuration file, usually empty. On the first run, the image will generate configuration values such as a new MySQL root password, write them to the configuration file, and create web and MySQL data directories. After the first run, the project directory will contain the following:</p>
 <pre><code>$ ls my-project
 
